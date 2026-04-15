@@ -69,6 +69,42 @@ body > * {
     background-color: rgba(228,228,228,0.1);
 }
 
+.selector-archivo {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.selector {
+    flex: 1;
+    text-align: center;
+    margin: 10px 0;
+    width: 100%;
+}
+
+.selector label {
+    width: 100%;
+    display: inline-block;
+    background: rgba(165,165,165,0.3);
+    padding: 8px 16px;
+    color: var(--blanco);
+    border-radius: 20px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.selector input {
+    display: none;
+}
+
+.playlist {
+    background-color: rgba(165,165,165,0.3);
+    width: 100%;
+    max-width: 200px;
+}
+
 .Reproductor-musica h1 {
     /*tamaño del titulo*/
     font-size: 1.5rem;
@@ -139,3 +175,4 @@ transform: scale(1.1);
 .controles .iconControl:hover{
 transform: scale(1.2);
 }
+

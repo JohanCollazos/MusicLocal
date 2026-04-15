@@ -34,12 +34,20 @@ const canciones = [
         fuente: 'music/«Religión - Yan Block.mp3',
     },
     {
+        titulo: 'Sharks',
+        nombre: 'imagine dragons',
+        fuente: 'music/imagine dragons - Sharks.mp3',
+    },
+    {
         titulo: 'Nubes Negras',
-        nombre: 'Los de Adentro',
-        fuente: 'music/Los de Adentro - Nubes Negras.mp3'
-    }
+        nombre: 'imagine dragons',
+        fuente: 'music/Los de Adentro - Nubes Negras.mp3',
+    },
+
 ];
 
+// Función para actualizar la información de la canción actual
+//encodeURL permite mantener el simbolo antes del nombre de la cancion
 let indiceCancionActual = 0;
 
 // Función para actualizar la información de la canción actual

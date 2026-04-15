@@ -9,15 +9,29 @@
 </head>
 <body>
     <section class="Reproductor-musica">
-        <div class="player-layout">
-            <div class="player-main"></div>
+
+        <div class="selector-archivos">
+            <div class="selector selector-musica">
+                <label for="musica-input">Playlits</label>
+                <input id="musica-input" type="file" multiple accept="audio/*">
+            </div>
+            <div class="selector selector-fondo">
+                <label for="fondo-input">Fondo</label>
+                <input id="fondo-input" type="file" accept="image/*">
+            </div>
+        </div>
+
+        <div class="Playlist">
+            <h2>Mi Playlist</h2>
+            <ul id="playlist-container"></ul>
+        </div>
+
             <h1>Titulo</h1>
             <p>Nombre</p>
-
             <audio id="cancion">
                 <source src="" type="audio/mpeg"/>
-            </audio>
 
+            </audio>
             <!--esto es la barra reproduccion-->
             <input type="range" value="0" id="progreso"/>
             <div class="controles">
@@ -36,10 +50,6 @@
             </div>
         </div>
 
-        <aside class="player-playlist">
-            <h2>Mi Playlist</h2>
-            <ul id="playlist-container"></ul>
-        </aside>
     </section>
 
     <script src="scrip.js" ></script>
