@@ -33,6 +33,11 @@ const canciones = [
         nombre: 'Yan Block',
         fuente: 'music/«Religión - Yan Block.mp3',
     },
+    {
+        titulo: 'Nubes Negras',
+        nombre: 'Los de Adentro',
+        fuente: 'music/Los de Adentro - Nubes Negras.mp3'
+    }
 ];
 
 let indiceCancionActual = 0;
