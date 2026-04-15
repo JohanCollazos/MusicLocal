@@ -33,6 +33,11 @@ const canciones = [
         nombre: 'Yan Block',
         fuente: 'music/«Religión - Yan Block.mp3',
     },
+    {
+        titulo: 'Sharks',
+        nombre: 'imagine dragons',
+        fuente: 'music/«Sharks - imagine dragons.mp3',
+    }
 ];
 
 let indiceCancionActual = 0;
