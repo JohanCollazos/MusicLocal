@@ -6,19 +6,20 @@
 
 /*esto es una variable en css*/
 :root {
-    --blanco: rgba(228,228,228,1)
+    --blanco: rgba(228, 228, 228, 1)
 }
 
 :root {
-    --negro: rgba(0,0,0,1)
+    --negro: rgba(0, 0, 0, 1)
 }
 
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: "Audiowide", sans-serif;
 }
+
 /*escoger en el tipo de fuente esta parte que diga family*/
 
 body {
@@ -43,7 +44,7 @@ body::before {
     content: '';
     position: absolute;
     /*siguiente linea oscurece el fondo las primeras 3 son el codigo del color y el ultimo es el grado de intencidad*/
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
     top: 0;
     bottom: 0;
     left: 0;
@@ -51,58 +52,126 @@ body::before {
     z-index: 1;
 }
 
-body > * { 
+body>* {
     position: relative;
     z-index: 2;
 }
 
-.Reproductor-musica{
+.Reproductor-musica {
+    /*nuevo*/
+    position: relative;
+    /* necesario no tocar*/
+    overflow: visible;
+    /*permite elementos fuera del contenedor*/
+    width: 380px;
+    padding: 10px 30px;
+    border-radius: 20px;
+    background-color: rgba(228, 228, 228, 0.1);
+    /*antiguo*/
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     /*selecciona la variable*/
-    color:var(--blanco);
-    width: 380px;
-    padding: 10px 30px;
-    border-radius: 20px;
-    background-color: rgba(228,228,228,0.1);
+    color: var(--blanco);
 }
 
-.selector-archivo {
+.selector-archivos {
     display: flex;
-    justify-content: space-between;
-    width: 100%;
     gap: 10px;
-    margin: 10px 0;
+    align-items: center;
+    width: 260px;
+    position: absolute;
+    left: -500px;
+    top: -200px;
+    z-index: 60;
 }
 
 .selector {
     flex: 1;
     text-align: center;
-    margin: 10px 0;
+    margin: 0;
     width: 100%;
 }
 
 .selector label {
+    display: block;
     width: 100%;
-    display: inline-block;
-    background: rgba(165,165,165,0.3);
-    padding: 8px 16px;
+    text-align: center;
+    background: rgba(165, 165, 165, 0.3);
+    padding: 8px 12px;
     color: var(--blanco);
     border-radius: 20px;
     cursor: pointer;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
+    position: static;
+    /* elimina top/right que rompían el layout */
 }
 
 .selector input {
     display: none;
 }
 
+/*fuera del cuadro*/
 .playlist {
-    background-color: rgba(165,165,165,0.3);
-    width: 100%;
-    max-width: 200px;
+    position: absolute;
+    top: -140px;
+    left: -520px;
+    width: 300px;
+    background-color: rgba(165, 165, 165, 0.3);
+    padding: 12px;
+    border-radius: 20px;
+    z-index: 50;
+    max-height: 570px;
+    overflow-y: auto;
+    margin: 0;
+}
+
+.playlist h2 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.playlist::-webkit-scrollbar {
+    width: 10px;
+}
+
+.playlist::-webkit-scrollbar-track {
+    background: rgb(96, 121, 104);
+    border-radius: 3px;
+}
+
+.playlist::-webkit-scrollbar-thumb {
+    background: rgba(135, 197, 179, 0.2);
+    border-radius: 3px;
+}
+
+.playlist::-webkit-scrollbar-thumb:hover {
+    background: rgba(135, 197, 179, 0.2);
+}
+
+#playlist-container {
+    list-style: none;
+}
+
+#playlist-container li {
+    padding: 8px;
+    margin: 4px 0;
+    border-radius: 10px;
+    background-color: rgba(189, 204, 200, 0.3);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+#playlist-container li:hover {
+    background-color: rgba(189, 204, 200, 0.4);
+}
+
+#playlist-container li.active {
+    background-color: rgba(189, 204, 200, 0.5);
+    font-weight: bold;
 }
 
 .Reproductor-musica h1 {
@@ -127,7 +196,7 @@ body > * {
     -webkit-appearance: none;
     width: 100%;
     height: 7px;
-    background: rgba(165,165,165,0.4);
+    background: rgba(165, 165, 165, 0.4);
     border-radius: 4px;
     margin: 32px 0 24px;
     cursor: pointer;
@@ -137,13 +206,13 @@ body > * {
 #progreso::-webkit-slider-thumb {
     appearance: none;
     -webkit-appearance: none;
-    background: rgba(165,165,165,0.9);
+    background: rgba(165, 165, 165, 0.9);
     /*tamaño*/
     width: 12px;
     aspect-ratio: 1/1;
     border-radius: 60%;
     outline: 4px solid var(--blanco);
-    box-shadow: 0 6px 10px rgba(228,228,228,0.3);
+    box-shadow: 0 6px 10px rgba(228, 228, 228, 0.3);
 }
 
 .controles {
@@ -155,24 +224,62 @@ body > * {
     width: 45px;
     aspect-ratio: 1/1;
     border-radius: 60%;
-    margin: 25px;
-    background: rgba(165,165,165,0.3);
+    margin: 10px;
+    background: rgba(165, 165, 165, 0.3);
     color: var(--blanco);
     border: 2px solid var(--negro);
     outline: 0;
     font-size: 1.5rem;
-    box-shadow: 0 6px 10px rgba(228,228,228,0.3);
+    box-shadow: 0 6px 10px rgba(228, 228, 228, 0.3);
     cursor: pointer;
     /*esto mete tiempo en las transicion de los iconos */
     transition: all 0.1s linear;
 }
 
 /*agranda iconos al oprimir los botones*/
-.controles .control:hover{
-transform: scale(1.1);
+.controles .control:hover {
+    transform: scale(1.1);
 }
 
-.controles .iconControl:hover{
-transform: scale(1.2);
+.controles .iconControl:hover {
+    transform: scale(1.2);
 }
 
+.controles .aleatorio.active {
+    background-color: rgba(165, 165, 165, 0.6);
+}
+
+.controles .aleatorio.active {
+    background-color: rgba(165, 165, 165, 0.6);
+}
+
+@media (max-width: 700px) {
+    .selector-archivos {
+        position: static;
+        width: 100%;
+        display: flex;
+        gap: 8px;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+
+    .playlist {
+        position: static;
+        width: 100%;
+        transform: none;
+        left: auto;
+        top: auto;
+        margin-top: 12px;
+    }
+
+    .Reproductor-musica {
+        width: calc(100% - 40px);
+        padding: 20px;
+    }
+}
+
+body {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
