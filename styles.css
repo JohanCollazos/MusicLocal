@@ -57,14 +57,16 @@ body>* {
     z-index: 2;
 }
 
+
+/*Se cambio el tamaño del reproductor para que cupiera la imagen*/
 .Reproductor-musica {
     /*nuevo*/
     position: relative;
     /* necesario no tocar*/
     overflow: visible;
     /*permite elementos fuera del contenedor*/
-    width: 380px;
-    padding: 10px 30px;
+    width: 420px;
+    padding: 20px 30px;
     border-radius: 20px;
     background-color: rgba(228, 228, 228, 0.1);
     /*antiguo*/
@@ -83,7 +85,7 @@ body>* {
     width: 260px;
     position: absolute;
     left: -500px;
-    top: -200px;
+    top: -80px;
     z-index: 60;
 }
 
@@ -115,7 +117,7 @@ body>* {
 /*fuera del cuadro*/
 .playlist {
     position: absolute;
-    top: -140px;
+    top: -30px;
     left: -520px;
     width: 300px;
     background-color: rgba(165, 165, 165, 0.3);
@@ -143,12 +145,12 @@ body>* {
 }
 
 .playlist::-webkit-scrollbar-thumb {
-    background: rgba(135, 197, 179, 0.2);
+    background: rgba(1, 14, 7, 0.2);
     border-radius: 3px;
 }
 
 .playlist::-webkit-scrollbar-thumb:hover {
-    background: rgba(135, 197, 179, 0.2);
+    background: rgba(1, 14, 7, 0.2);
 }
 
 #playlist-container {
@@ -253,6 +255,8 @@ body>* {
     background-color: rgba(165, 165, 165, 0.6);
 }
 
+/*vista movil (en proceso...)*/
+
 @media (max-width: 700px) {
     .selector-archivos {
         position: static;
@@ -278,8 +282,30 @@ body>* {
     }
 }
 
+/*Ajusta la imagen de fondo*/
 body {
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
+}
+
+/*imagen de la cancion*/
+#cover-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+#cover {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+#cover-icon {
+    font-size: 120px;
+    color: white;
 }
