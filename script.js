@@ -10,6 +10,13 @@ const botonReproducirPausar = document.querySelector('.controles button.boton-re
 
 const botonAtras = document.querySelector('.controles button.atras');
 const botonAdelante = document.querySelector('.controles button.siguiente');
+const botonAleatorio = document.querySelector('.controles button.aleatorio');
+const botonRepetir = document.querySelector('.controles button.repetir');
+
+const playlistContainer = document.querySelector('.playlist-container');
+
+let indiceCancionActual = 0;
+let modoAleatorio = false;
 
 document.getElementById('fondo-input').addEventListener('change', function (e) {
     const file = e.target.files[0];
@@ -21,6 +28,8 @@ document.getElementById('fondo-input').addEventListener('change', function (e) {
         reader.readAsDataURL(file);
     }
 })
+
+
 
 // Lista de canciones
 const canciones = [
@@ -56,10 +65,6 @@ const canciones = [
     },
 
 ];
-
-// Función para actualizar la información de la canción actual
-//encodeURL permite mantener el simbolo antes del nombre de la cancion
-let indiceCancionActual = 0;
 
 // Función para actualizar la información de la canción actual
 //encodeURL permite mantener el simbolo antes del nombre de la cancion
@@ -161,5 +166,17 @@ botonAtras.addEventListener('click', function () {
     actualizarInfoCancion();
     reproducirCancion();
 });
+//Botón de aleatorio
+botonAleatorio.addEventListener('click', function () {
+    modoAleatorio = !modoAleatorio;
+    botonAleatorio.classList.toggle('active');
+    
+});
+//Botón de repetir
+botonRepetir.addEventListener('click', function () {
+    cancion.currentTime = 0;
+    reproducirCancion();
+});
+
 
 actualizarInfoCancion();                                                                                            
