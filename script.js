@@ -63,12 +63,47 @@ let indiceCancionActual = 0;
 
 // Función para actualizar la información de la canción actual
 //encodeURL permite mantener el simbolo antes del nombre de la cancion
+//function actualizarInfoCancion() {
+//    tituloCancion.textContent = canciones[indiceCancionActual].titulo;
+//    nombreArtista.textContent = canciones[indiceCancionActual].nombre;
+//    cancion.src = encodeURI(canciones[indiceCancionActual].fuente);
+//    cancion.addEventListener('loadeddata', function () { });
+//};
+
+//Nueva funcion para actualizar la información de la canción actual, ahora con foto de la cancion, utilizando la libreria jsmediatags para leer los metadatos del MP3 y obtener la imagen de portada. Si no hay imagen, se muestra una imagen vacía.
 function actualizarInfoCancion() {
     tituloCancion.textContent = canciones[indiceCancionActual].titulo;
     nombreArtista.textContent = canciones[indiceCancionActual].nombre;
     cancion.src = encodeURI(canciones[indiceCancionActual].fuente);
-    cancion.addEventListener('loadeddata', function () { });
-};
+
+    jsmediatags.read(canciones[indiceCancionActual].fuente, {
+        onSuccess: function (tag) {
+            const picture = tag.tags.picture;
+            const cover = document.getElementById("cover");
+            const coverIcon = document.getElementById("cover-icon");
+
+            if (picture) {
+                let base64String = "";
+                for (let i = 0; i < picture.data.length; i++) {
+                    base64String += String.fromCharCode(picture.data[i]);
+                }
+                const imageUri = "data:" + picture.format + ";base64," + window.btoa(base64String);
+                cover.src = imageUri;
+                cover.style.display = "block";
+                coverIcon.style.display = "none";
+            } else {
+                cover.style.display = "none";
+                coverIcon.style.display = "block";
+            }
+        },
+        onError: function (error) {
+            console.log("Error leyendo tags:", error);
+            document.getElementById("cover").style.display = "none";
+            document.getElementById("cover-icon").style.display = "block";
+        }
+    });
+}
+
 
 
 cancion.addEventListener('loadedmetadata', function () {
