@@ -11,6 +11,17 @@ const botonReproducirPausar = document.querySelector('.controles button.boton-re
 const botonAtras = document.querySelector('.controles button.atras');
 const botonAdelante = document.querySelector('.controles button.siguiente');
 
+document.getElementById('fondo-input').addEventListener('change', function (e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            document.body.style.backgroundImage = `url(${e.target.result})`;
+        };
+        reader.readAsDataURL(file);
+    }
+})
+
 // Lista de canciones
 const canciones = [
     {
@@ -99,8 +110,6 @@ cancion.addEventListener('timeupdate', function () {
 progreso.addEventListener('input', function () {
     cancion.currentTime = progreso.value;
 });
-
-
 progreso.addEventListener('change', function () {
     reproducirCancion();
 });
