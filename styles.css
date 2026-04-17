@@ -140,7 +140,8 @@ body>* {
 }
 
 .playlist::-webkit-scrollbar-track {
-    background: rgb(96, 121, 104);
+    /*Color provisional de la barra de la playlist*/
+    background: rgb(117, 121, 96);
     border-radius: 3px;
 }
 
@@ -208,13 +209,13 @@ body>* {
 #progreso::-webkit-slider-thumb {
     appearance: none;
     -webkit-appearance: none;
-    background: rgba(165, 165, 165, 0.9);
+    background: rgba(255, 0, 0, 0.9);
     /*tamaño*/
     width: 12px;
     aspect-ratio: 1/1;
     border-radius: 60%;
     outline: 4px solid var(--blanco);
-    box-shadow: 0 6px 10px rgba(228, 228, 228, 0.3);
+    box-shadow: 0 6px 10px rgba(255, 0, 0, 0.3);
 }
 
 .controles {
