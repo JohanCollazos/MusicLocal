@@ -18,6 +18,7 @@ const playlistContainer = document.querySelector('.playlist-container');
 let indiceCancionActual = 0;
 let modoAleatorio = false;
 
+// Función para cambiar el fondo del reproductor
 document.getElementById('fondo-input').addEventListener('change', function (e) {
     const file = e.target.files[0];
     if (file) {
