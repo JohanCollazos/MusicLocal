@@ -13,8 +13,10 @@ const botonAdelante = document.querySelector('.controles button.siguiente');
 const botonAleatorio = document.querySelector('.controles button.aleatorio');
 const botonRepetir = document.querySelector('.controles button.repetir');
 
-const playlistContainer = document.querySelector('.playlist-container');
+const playlistContainer = document.getElementById('playlist-container');
 
+
+let canciones = [];
 let indiceCancionActual = 0;
 let modoAleatorio = false;
 
@@ -30,51 +32,44 @@ document.getElementById('fondo-input').addEventListener('change', function (e) {
     }
 })
 
+// Función para cargar una canción personalizada
+document.getElementById('musica-input').addEventListener('change', function (e) {
+//arreglo
+    const file = Array.from(e.target.files);
+
+    file.forEach(file => {
+        const url = URL.createObjectURL(file);
+        const nombreArchivo = file.name.replace(/\.[^/.]+$/, ""); // Eliminar la extensión del archivo
+
+        canciones.push({
+            titulo: nombreArchivo,
+            nombre: 'Artista Desconocido',
+            fuente: url
+        });
+    });
+
+    actualizarplaylist();
+});
+
+function actualizarplaylist() {
+    playlistContainer.innerHTML = '';
+    canciones.forEach((cancion, index) => {
+        const li = document.createElement('li');
+        //recorriendo las canciones
+        li.textContent = `${cancion.titulo} - ${cancion.nombre}`;
+
+        playlistContainer.appendChild(li);
+
+        // Agregar evento de clic para reproducir la canción al hacer clic en el elemento de la lista
+        li.addEventListener('click', function () {
+            indiceCancionActual = index;
+            actualizarInfoCancion();
+            reproducirCancion();
+        });
+    });
+}
 
 
-// Lista de canciones
-const canciones = [
-    {
-        titulo: 'Faded',
-        nombre: 'Alan Walker',
-        fuente: 'music/«Faded - Alan Walker.mp3',
-    },
-    {
-        titulo: '444',
-        nombre: 'Yan Block -Panda Black',
-        fuente: 'music/«444 - Yan Block - Panda Black.mp3',
-    },
-    {
-        titulo: 'Fairytale',
-        nombre: 'Alexander Rybak',
-        fuente: 'music/«Fairytale - Alexander Rybak.mp3',
-    },
-    {
-        titulo: 'Religión',
-        nombre: 'Yan Block',
-        fuente: 'music/«Religión - Yan Block.mp3',
-    },
-    {
-        titulo: 'Sharks',
-        nombre: 'imagine dragons',
-        fuente: 'music/imagine dragons - Sharks.mp3',
-    },
-    {
-        titulo: 'Nubes Negras',
-        nombre: 'imagine dragons',
-        fuente: 'music/Los de Adentro - Nubes Negras.mp3',
-    },
-
-];
-
-// Función para actualizar la información de la canción actual
-//encodeURL permite mantener el simbolo antes del nombre de la cancion
-//function actualizarInfoCancion() {
-//    tituloCancion.textContent = canciones[indiceCancionActual].titulo;
-//    nombreArtista.textContent = canciones[indiceCancionActual].nombre;
-//    cancion.src = encodeURI(canciones[indiceCancionActual].fuente);
-//    cancion.addEventListener('loadeddata', function () { });
-//};
 
 //Nueva funcion para actualizar la información de la canción actual, ahora con foto de la cancion, utilizando la libreria jsmediatags para leer los metadatos del MP3 y obtener la imagen de portada. Si no hay imagen, se muestra una imagen vacía.
 function actualizarInfoCancion() {
@@ -180,4 +175,4 @@ botonRepetir.addEventListener('click', function () {
 });
 
 
-actualizarInfoCancion();                                                                                            
+actualizarInfoCancion();
