@@ -19,6 +19,7 @@ const playlistContainer = document.getElementById('playlist-container');
 let canciones = [];
 let indiceCancionActual = 0;
 let modoAleatorio = false;
+let modoRepetir = false;
 
 // Función para cambiar el fondo del reproductor
 document.getElementById('fondo-input').addEventListener('change', function (e) {
@@ -69,13 +70,14 @@ function actualizarplaylist() {
     });
 }
 
-
-
 //Nueva funcion para actualizar la información de la canción actual, ahora con foto de la cancion, utilizando la libreria jsmediatags para leer los metadatos del MP3 y obtener la imagen de portada. Si no hay imagen, se muestra una imagen vacía.
 function actualizarInfoCancion() {
     tituloCancion.textContent = canciones[indiceCancionActual].titulo;
     nombreArtista.textContent = canciones[indiceCancionActual].nombre;
     cancion.src = encodeURI(canciones[indiceCancionActual].fuente);
+    cancion.loop = modoRepetir;
+    actualizarplaylist();
+
 
     jsmediatags.read(canciones[indiceCancionActual].fuente, {
         onSuccess: function (tag) {
@@ -143,6 +145,29 @@ cancion.addEventListener('timeupdate', function () {
     }
 });
 
+cancion.addEventListener('ended', function () {
+    if (modoRepetir) {
+        reproducirCancion();
+        return;
+    }
+    
+    if (modoAleatorio) {
+        indiceCancionActual = obtenerIndiceAleatorio ();
+    } else {
+        indiceCancionActual = (indiceCancionActual + 1) % canciones.length;
+    }  
+    actualizarInfoCancion();
+    reproducirCancion();
+});
+
+function obtenerIndiceAleatorio() {
+    let nuevoIndice;
+    do {
+        nuevoIndice = Math.floor(Math.random() * canciones.length);
+    } while (nuevoIndice === indiceCancionActual && canciones.length > 1);
+    return nuevoIndice;
+}
+
 progreso.addEventListener('input', function () {
     cancion.currentTime = progreso.value;
 });
@@ -153,25 +178,59 @@ progreso.addEventListener('change', function () {
 // Funciones para cambiar a la siguiente canción
 botonAdelante.addEventListener('click', function () {
     indiceCancionActual = (indiceCancionActual + 1) % canciones.length;
+    if (modoRepetir) {  
+        cancion.currentTime = 0;
+        reproducirCancion();
+        return;
+    }   
+
+    if (modoAleatorio) {
+        indiceCancionActual = obtenerIndiceAleatorio();
+    } else {
+        indiceCancionActual = (indiceCancionActual + 1) % canciones.length;
+    }   
     actualizarInfoCancion();
     reproducirCancion();
 });
 // Funciones para cambiar a la canción anterior
 botonAtras.addEventListener('click', function () {
-    indiceCancionActual = (indiceCancionActual - 1 + canciones.length) % canciones.length;
+    if (modoRepetir) {  
+        cancion.currentTime = 0;
+        reproducirCancion();
+        return;
+    }
+if (modoAleatorio) {
+        indiceCancionActual = obtenerIndiceAleatorio();
+    } else {
+        indiceCancionActual = (indiceCancionActual - 1) % canciones.length;
+    }  
+
     actualizarInfoCancion();
     reproducirCancion();
 });
 //Botón de aleatorio
 botonAleatorio.addEventListener('click', function () {
-    modoAleatorio = !modoAleatorio;
+    if(modoAleatorio) {
+        modoAleatorio = false;
+    } else {
+        modoAleatorio = true;
+        modoRepetir = false; 
+        botonRepetir.classList.remove('active');
+    }
     botonAleatorio.classList.toggle('active');
-    
+    cancion.loop = modoRepetir;
 });
 //Botón de repetir
 botonRepetir.addEventListener('click', function () {
-    cancion.currentTime = 0;
-    reproducirCancion();
+    if(modoRepetir) {
+        modoRepetir = false;
+    } else {
+        modoRepetir = true;
+        modoAleatorio = false; 
+        botonAleatorio.classList.remove('active');
+    }
+    botonRepetir.classList.toggle('active');
+    cancion.loop = modoRepetir;    
 });
 
 
